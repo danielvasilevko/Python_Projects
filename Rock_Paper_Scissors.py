@@ -1,3 +1,6 @@
+#This function simulates a game of Rock Paper Scissors. Instead of going against another person you go against
+#a computer that picks a random choice.
+
 import random
 
 def Rock_Paper_Scissors():

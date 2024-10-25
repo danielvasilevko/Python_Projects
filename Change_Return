@@ -1,3 +1,5 @@
+#This function is takes in a price and a payment and gives back the remainder or "change" of the transaction
+#along with the types of currency that change can be broken down into.
 
 def change_return(cost, given):
     change = round((abs(cost - given)) * 100)

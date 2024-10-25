@@ -1,28 +1,27 @@
 
-def change_return(cost,given):
-    change = abs(cost - given)
+def change_return(cost, given):
+    change = round((abs(cost - given)) * 100)
+    
     if change == 0:
-        "No change needed."
+        print("No change needed.")
         return
-    owed = change
 
-    dollars = change // 1
-    change -= dollars
-   
-    quarters = change // .25
-    change -= quarters * .25
-
-    dimes = change // .1
-    change -= dimes * .1
-
-    nickels = change // .05
-    change -= nickels * .05
-
-    pennies = change // .01
+    owed = change / 100 
     
-    print(f"The person paying is owed ${owed:.2f} which can be payed with {int(dollars)} Dollars, {int(quarters)} Quarters, {int(dimes)} Dimes, {int(nickels)} Nickels, and {int(pennies)} Pennies.")
+    dollars = change // 100
+    change %= 100  
 
+    quarters = change // 25
+    change %= 25  
 
+    dimes = change // 10
+    change %= 10
 
-print(change_return(17.25,16.89))
-    
+    nickels = change // 5
+    change %= 5
+
+    pennies = change
+
+    print(f"The person paying is owed ${owed:.2f}, which can be paid with {dollars} Dollars, {quarters} Quarters, {dimes} Dimes, {nickels} Nickels, and {pennies} Pennies.")
+
+change_return(16.25, 17.89)

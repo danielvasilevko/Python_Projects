@@ -1,0 +1,27 @@
+
+def change_return(cost,given):
+    change = abs(cost - given)
+    if change == 0:
+        "No change needed."
+        return
+    owed = change
+
+    dollars = change // 1
+    change -= dollars
+   
+    quarters = change // .25
+    change -= quarters
+
+    dimes = change // .1
+    change -= dimes
+
+    nickels = change // .05
+    change -= nickels
+
+    pennies = change // .01
+    
+    print(f"The person paying is owed ${owed} which can be payed with {dollars} Dollars, 
+          {quarters} Quarters, {dimes} Dimes, {nickels} Nickels, and {pennies} Pennies.")
+
+    
+    

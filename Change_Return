@@ -10,18 +10,19 @@ def change_return(cost,given):
     change -= dollars
    
     quarters = change // .25
-    change -= quarters
+    change -= quarters * .25
 
     dimes = change // .1
-    change -= dimes
+    change -= dimes * .1
 
     nickels = change // .05
-    change -= nickels
+    change -= nickels * .05
 
     pennies = change // .01
     
-    print(f"The person paying is owed ${owed} which can be payed with {dollars} Dollars, 
-          {quarters} Quarters, {dimes} Dimes, {nickels} Nickels, and {pennies} Pennies.")
+    print(f"The person paying is owed ${owed:.2f} which can be payed with {int(dollars)} Dollars, {int(quarters)} Quarters, {int(dimes)} Dimes, {int(nickels)} Nickels, and {int(pennies)} Pennies.")
 
-    
+
+
+print(change_return(17.25,16.89))
     

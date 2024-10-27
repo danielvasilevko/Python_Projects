@@ -54,14 +54,30 @@ def press_d(array):
                 continue
             else:
                 if array[j,i+1] == 0:                   #case for a number just moving up
-                    array[j,i+1] = array[i,j]
-                    array[i,j] = 0
-                elif array[i+1,j] == array[i,j]:        #case for 2 numbers merging
-                    array[i+1,j] = array[i+1,j] * 2
-                    array[i,j] = 0
+                    array[j,i+1] = array[j,i]
+                    array[j,i] = 0
+                elif array[j,i+1] == array[j,i]:        #case for 2 numbers merging
+                    array[j,i+1] = array[j,i+1] * 2
+                    array[j,i] = 0
                 else: 
                     continue     
 
+def press_a(array):
+    iterate = range(0,4)
+    for i in iterate:         
+        for j in iterate:
+            if array[j,i] == 0 or i ==0:
+                continue
+            else:
+                if array[j,i-1] == 0:                   #case for a number just moving up
+                    array[j,i-1] = array[j,i]
+                    array[j,i] = 0
+                elif array[j,i-1] == array[j,i]:        #case for 2 numbers merging
+                    array[j,i-1] = array[j,i-1] * 2
+                    array[j,i] = 0
+                else: 
+                    continue
+ 
 
 def game_2048():
     
@@ -94,9 +110,23 @@ def game_2048():
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
                 press_S(old_board)
-                counter += 1
             board = new_board.copy()
-            print(counter)
+        
+        elif move == "d":
+            old_board = board.copy()
+            new_board = np.empty((4,4))
+            while np.array_equal(old_board,new_board) == False:
+                new_board = old_board.copy()
+                press_d(old_board)
+            board = new_board.copy()
+        
+        elif move == "a":
+            old_board = board.copy()
+            new_board = np.empty((4,4))
+            while np.array_equal(old_board,new_board) == False:
+                new_board = old_board.copy()
+                press_a(old_board)
+            board = new_board.copy()
         
         insert_num(board)
         print(board)

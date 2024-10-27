@@ -30,8 +30,37 @@ def press_W(array):
                 else: 
                     continue
 
-                
+def press_S(array):
+    iterate = range(3,-1,-1)
+    for i in iterate:         
+        for j in iterate:
+            if array[i,j] == 0 or i ==3:    
+                continue
+            else:
+                if array[i+1,j] == 0:                   #case for a number just moving up
+                    array[i+1,j] = array[i,j]
+                    array[i,j] = 0
+                elif array[i+1,j] == array[i,j]:        #case for 2 numbers merging
+                    array[i+1,j] = array[i+1,j] * 2
+                    array[i,j] = 0
+                else: 
+                    continue     
 
+def press_d(array):
+    iterate = range(3,-1,-1)
+    for i in iterate:         
+        for j in iterate:
+            if array[j,i] == 0 or i ==3:    
+                continue
+            else:
+                if array[j,i+1] == 0:                   #case for a number just moving up
+                    array[j,i+1] = array[i,j]
+                    array[i,j] = 0
+                elif array[i+1,j] == array[i,j]:        #case for 2 numbers merging
+                    array[i+1,j] = array[i+1,j] * 2
+                    array[i,j] = 0
+                else: 
+                    continue     
 
 
 def game_2048():
@@ -57,8 +86,20 @@ def game_2048():
                 new_board = old_board.copy()
                 press_W(old_board)
             board = new_board.copy()
-            print(board)
+    
         elif move == "s":
-            return
+            old_board = board.copy()
+            new_board = np.empty((4,4))
+            counter = 0
+            while np.array_equal(old_board,new_board) == False:
+                new_board = old_board.copy()
+                press_S(old_board)
+                counter += 1
+            board = new_board.copy()
+            print(counter)
         
+        insert_num(board)
+        print(board)
+    
+    
 game_2048()

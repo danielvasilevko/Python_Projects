@@ -21,8 +21,11 @@ def press_W(array):
             if array[i,j] == 0 or i ==0:
                 continue
             else:
-                if array[i+1,i] == 0:
-                    array[i+1,j] = array[i.j]
+                if array[i-1,j] == 0:                   #case for a number just moving up
+                    array[i-1,j] = array[i,j]
+                    array[i,j] = 0
+                elif array[i-1,j] == array[i,j]:        #case for 2 numbers merging
+                    array[i-1,j] = array[i-1,j] * 2
                     array[i,j] = 0
                 else: 
                     continue
@@ -32,6 +35,7 @@ def press_W(array):
 
 
 def game_2048():
+    
     board = np.zeros((4, 4))
     insert_num(board)
     insert_num(board)
@@ -42,20 +46,19 @@ def game_2048():
     print("D to move right")
     
     print(board)
+    gamekiller = True
 
-    while True:
-        move = input("Chose a move.").lower()
+    while gamekiller == True:
+        move = input("Chose a move. ").lower()
         if move == "w":
             old_board = board.copy()
-            new_board = np.empty(4,4)
-
-            while old_board != new_board:
+            new_board = np.empty((4,4))
+            while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
-                press_W(new_board)
+                press_W(old_board)
             board = new_board.copy()
             print(board)
         elif move == "s":
             return
         
-
-
+game_2048()

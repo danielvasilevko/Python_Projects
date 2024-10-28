@@ -16,6 +16,7 @@ def insert_num(array): #when given an array this function will insert a 2 or 4 r
 
 def press_W(array):
     iterate = range(0,4)
+    point = 0
     for i in iterate:         
         for j in iterate:
             if array[i,j] == 0 or i ==0:
@@ -27,11 +28,14 @@ def press_W(array):
                 elif array[i-1,j] == array[i,j]:        #case for 2 numbers merging
                     array[i-1,j] = array[i-1,j] * 2
                     array[i,j] = 0
+                    point += int(array[i-1,j])
                 else: 
                     continue
+    return(array,point)
 
 def press_S(array):
     iterate = range(3,-1,-1)
+    point = 0
     for i in iterate:         
         for j in iterate:
             if array[i,j] == 0 or i ==3:    
@@ -43,11 +47,14 @@ def press_S(array):
                 elif array[i+1,j] == array[i,j]:        #case for 2 numbers merging
                     array[i+1,j] = array[i+1,j] * 2
                     array[i,j] = 0
+                    point += int(array[i+1,j])
                 else: 
-                    continue     
+                    continue  
+    return(array,point)   
 
 def press_d(array):
     iterate = range(3,-1,-1)
+    point = 0
     for i in iterate:         
         for j in iterate:
             if array[j,i] == 0 or i ==3:    
@@ -59,11 +66,15 @@ def press_d(array):
                 elif array[j,i+1] == array[j,i]:        #case for 2 numbers merging
                     array[j,i+1] = array[j,i+1] * 2
                     array[j,i] = 0
+                    point += int(array[j,i+1])
                 else: 
-                    continue     
+                    continue  
+    return(array,point)   
+   
 
 def press_a(array):
     iterate = range(0,4)
+    point = 0
     for i in iterate:         
         for j in iterate:
             if array[j,i] == 0 or i ==0:
@@ -75,8 +86,11 @@ def press_a(array):
                 elif array[j,i-1] == array[j,i]:        #case for 2 numbers merging
                     array[j,i-1] = array[j,i-1] * 2
                     array[j,i] = 0
+                    point += int(array[j,i-1])
                 else: 
                     continue
+    return(array,point)   
+
  
 
 def game_2048():
@@ -91,25 +105,33 @@ def game_2048():
     print("D to move right")
     
     print(board)
-    gamekiller = True
+    game_winner = False
+    gamekiller =True
+    points = 0
 
     while gamekiller == True:
+        print(f"Points:{points}")
         move = input("Chose a move. ").lower()
         if move == "w":
             old_board = board.copy()
             new_board = np.empty((4,4))
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
-                press_W(old_board)
+                old_board,temppoints = press_W(old_board)
+                if temppoints == 32:
+                    game_winner = True
+                points += temppoints
             board = new_board.copy()
     
         elif move == "s":
             old_board = board.copy()
             new_board = np.empty((4,4))
-            counter = 0
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
-                press_S(old_board)
+                old_board,temppoints = press_S(old_board)
+                if temppoints == 32:
+                    game_winner = True
+                points += temppoints
             board = new_board.copy()
         
         elif move == "d":
@@ -117,7 +139,10 @@ def game_2048():
             new_board = np.empty((4,4))
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
-                press_d(old_board)
+                old_board,temppoints = press_d(old_board)
+                if temppoints == 32:
+                    game_winner = True
+                points += temppoints
             board = new_board.copy()
         
         elif move == "a":
@@ -125,11 +150,16 @@ def game_2048():
             new_board = np.empty((4,4))
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
-                press_a(old_board)
+                old_board,temppoints = press_a(old_board)
+                if temppoints == 32:
+                    game_winner = True
+                points += temppoints
             board = new_board.copy()
         
+
         insert_num(board)
         print(board)
-    
+        if game_winner == True:
+            print("CONGRATULATIONS! YOU WON!")
     
 game_2048()

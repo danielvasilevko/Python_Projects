@@ -10,6 +10,8 @@ def insert_num(array): #when given an array this function will insert a 2 or 4 r
             if array[i,j] == 0:
                 locations.append([i,j])   #add the valid loactions to a list
     
+    if not locations:
+        return("Lose")
     insert_loc = random.choice(locations)              #chose a rand location       
     insert_num = np.random.choice([2,4],p=[.9,.1])     #chose a number to insert. The different proabilities are needed as those are the actual insert ratios for 2048
     array[insert_loc[0],insert_loc[1]] = insert_num    # replace the chosen 0 location with a number
@@ -109,6 +111,8 @@ def game_2048():
     gamekiller =True
     points = 0
 
+    winner_amount = 2048
+
     while gamekiller == True:
         print(f"Points:{points}")
         move = input("Chose a move. ").lower()
@@ -118,7 +122,7 @@ def game_2048():
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
                 old_board,temppoints = press_W(old_board)
-                if temppoints == 32:
+                if temppoints == winner_amount:
                     game_winner = True
                 points += temppoints
             board = new_board.copy()
@@ -129,7 +133,7 @@ def game_2048():
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
                 old_board,temppoints = press_S(old_board)
-                if temppoints == 32:
+                if temppoints == winner_amount:
                     game_winner = True
                 points += temppoints
             board = new_board.copy()
@@ -140,7 +144,7 @@ def game_2048():
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
                 old_board,temppoints = press_d(old_board)
-                if temppoints == 32:
+                if temppoints == winner_amount:
                     game_winner = True
                 points += temppoints
             board = new_board.copy()
@@ -151,15 +155,24 @@ def game_2048():
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
                 old_board,temppoints = press_a(old_board)
-                if temppoints == 32:
+                if temppoints == winner_amount:
                     game_winner = True
                 points += temppoints
             board = new_board.copy()
         
 
-        insert_num(board)
+        if insert_num(board) == "Lose":
+            gamekiller = False
+        else:
+            insert_num(board)
         print(board)
         if game_winner == True:
             print("CONGRATULATIONS! YOU WON!")
+
+    again = input("Sorry, you lost. Type Yes to play again. ")
+    if again == "Yes":
+        game_2048()
+
+
     
 game_2048()

@@ -10,11 +10,11 @@ def insert_num(array): #when given an array this function will insert a 2 or 4 r
             if array[i,j] == 0:
                 locations.append([i,j])   #add the valid loactions to a list
     
-    if not locations:
+    if not locations:                                  #if there are no locations for 0's to go you lose
         return("Lose")
     insert_loc = random.choice(locations)              #chose a rand location       
     insert_num = np.random.choice([2,4],p=[.9,.1])     #chose a number to insert. The different proabilities are needed as those are the actual insert ratios for 2048
-    array[insert_loc[0],insert_loc[1]] = insert_num    # replace the chosen 0 location with a number
+    array[insert_loc[0],insert_loc[1]] = insert_num    #replace the chosen 0 location with a number
 
 def press_W(array):
     iterate = range(0,4)
@@ -107,7 +107,7 @@ def game_2048():
     print("D to move right")
     
     print(board)
-    game_winner = False
+    game_winner = False                  
     gamekiller =True
     points = 0
 
@@ -119,12 +119,12 @@ def game_2048():
         if move == "w":
             old_board = board.copy()
             new_board = np.empty((4,4))
-            while np.array_equal(old_board,new_board) == False:
+            while np.array_equal(old_board,new_board) == False:   #keeps doing press_W until the board cannot change aka is in its final positino
                 new_board = old_board.copy()
-                old_board,temppoints = press_W(old_board)
-                if temppoints == winner_amount:
+                old_board,temppoints = press_W(old_board)   #collects the new board state and the points from merges
+                if temppoints == winner_amount:             #if 2048 points are gotten from 1 merge then 2048 must exist on the board so the person wins
                     game_winner = True
-                points += temppoints
+                points += temppoints                 
             board = new_board.copy()
     
         elif move == "s":
@@ -132,7 +132,7 @@ def game_2048():
             new_board = np.empty((4,4))
             while np.array_equal(old_board,new_board) == False:
                 new_board = old_board.copy()
-                old_board,temppoints = press_S(old_board)
+                old_board,temppoints = press_S(old_board)             
                 if temppoints == winner_amount:
                     game_winner = True
                 points += temppoints

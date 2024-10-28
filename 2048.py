@@ -1,3 +1,6 @@
+# This is a python version of the classic game 2048. The main gameplay loop is to shift around numbers which merge together to create larger ones.
+# The game end when (as the title suggests) you reach 2048. 
+
 import random
 
 import numpy as np 
@@ -93,7 +96,6 @@ def press_a(array):
                     continue
     return(array,point)   
 
- 
 
 def game_2048():
     

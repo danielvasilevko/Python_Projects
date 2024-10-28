@@ -172,7 +172,5 @@ def game_2048():
     again = input("Sorry, you lost. Type Yes to play again. ")
     if again == "Yes":
         game_2048()
-
-
     
 game_2048()

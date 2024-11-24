@@ -159,12 +159,14 @@ def game_2048():
                     game_winner = True
                 points += temppoints
             board = new_board.copy()
+        else:
+            print("Invalid choice. Try Again")
+            continue
         
 
         if insert_num(board) == "Lose":
             gamekiller = False
-        else:
-            insert_num(board)
+    
         print(board)
         if game_winner == True:
             print("CONGRATULATIONS! YOU WON!")
